@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="西泽的博客">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        用IDEA Community和Docker构建Spring Boot开发环境 - 西泽的博客
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 自分の中にいる猛獣を、絶滅させない </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar radius">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>西泽</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在前面"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#环境说明"><span class="toc-text">环境说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#目标效果"><span class="toc-text">目标效果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#程序的运行环境完全使用Docker"><span class="toc-text">程序的运行环境完全使用Docker</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#文件准备"><span class="toc-text">文件准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行程序"><span class="toc-text">运行程序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#踩坑记录"><span class="toc-text">踩坑记录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#遇到handshake-failed-connection-prematurally-closed"><span class="toc-text">遇到handshake failed - connection prematurally closed</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#写在后面"><span class="toc-text">写在后面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> 自分の中にいる猛獣を、絶滅させない </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        用IDEA Community和Docker构建Spring Boot开发环境
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2020-05-16 20:00:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Docker" title="Docker">Docker</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#折腾" title="折腾">折腾</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>前阵子开始学习Docker，容器化确实是很方便很有魅力的技术，因为在工作中并没有用到，便想着能不能在自己的日常开发中使用学习。</p>
+<p>实践上的话第一个想到的还是用来构建开发环境吧，不同于其他发行版多的语言，Java开发环境中JDK还是比较少变化的（当然前两年开始半年发布一个大版本了），而且Java是编译型语言，在将Docker运用到开发环境中感觉还是较为麻烦的，这里记录一下自己的折腾过程。</p>
+<h2 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h2><p>本文主要围绕使用IDEA Community进行Spring Boot应用的开发做记录，在网上查找资料时感觉IDEA不同版本下对Docker的使用差别还蛮大的，毕竟Docker也是这几年才快速发展的技术，IDE厂商们跟进肯定也不是一步到位的，前期坑也不少，如果想在不同版本尝试体验的话，我会推荐你直接查看IDEA官方的Guide。<br>本文涉及的工具版本等如下：</p>
+<ul>
+<li>IDEA Community 2020.1.1<br>（安装好Docker和Spring插件）</li>
+<li>Docker 19.03.8</li>
+<li>docker-compose 1.25.4</li>
+</ul>
+<h2 id="目标效果"><a href="#目标效果" class="headerlink" title="目标效果"></a>目标效果</h2><p>首先是程序，主要想实践一个每次访问后递增数字的Restful的接口，数字存在Redis容器中；<br>开发效果上当然想尽量能够跟直接在本地开发一样，包括热更新等的使用体验。</p>
+<h2 id="程序的运行环境完全使用Docker"><a href="#程序的运行环境完全使用Docker" class="headerlink" title="程序的运行环境完全使用Docker"></a>程序的运行环境完全使用Docker</h2><h3 id="文件准备"><a href="#文件准备" class="headerlink" title="文件准备"></a>文件准备</h3><p>Demo的代码可以查看我的<a href="https://github.com/zhaozecheng/spring-docker-debug-demo" target="_blank" rel="noopener">Github仓库</a>。</p>
+<ol>
+<li><p>Java程序<br>首先先通过Spring Assistant插件创建一个Spring Boot项目，勾选上web，Redis和devtool等需要的依赖后，实现我需要的程序如下： </p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/demo"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> StringRedisTemplate stringRedisTemplate ;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String KEY = <span class="string">"demo-key"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/increase"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">increase</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String result;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (stringRedisTemplate.hasKey(KEY)) &#123;</span><br><span class="line">            String val = stringRedisTemplate.opsForValue().get(KEY);</span><br><span class="line">            result = (Integer.parseInt(val) + <span class="number">1</span>) + <span class="string">""</span>;</span><br><span class="line">            stringRedisTemplate.opsForValue().set(KEY, result);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            stringRedisTemplate.opsForValue().set(KEY, <span class="string">"1"</span>);</span><br><span class="line">            result = <span class="string">"1"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建Dockerfile<br>创建一个Dockerfile，拷贝项目后执行<code>mvn packge</code>打包：</p>
+ <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> openjdk:<span class="number">11</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> . /project</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update \</span></span><br><span class="line"><span class="bash">    &amp;&amp; apt-get install -y maven \</span></span><br><span class="line"><span class="bash">    &amp;&amp; <span class="built_in">cd</span> /project \</span></span><br><span class="line"><span class="bash">    &amp;&amp; mvn package</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">"java"</span>, <span class="string">"-jar"</span>, <span class="string">"/project/target/docker-debug-demo-0.0.1-SNAPSHOT.jar"</span>]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建docker-compose.yml<br>创建docker-compose文件，主要包含执行jar包的app容器和redis容器</p>
+ <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'3'</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">app:</span></span><br><span class="line">    <span class="attr">build:</span></span><br><span class="line">    <span class="attr">context:</span> <span class="string">.</span></span><br><span class="line">    <span class="attr">dockerfile:</span> <span class="string">Dockerfile</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">"8080:8080"</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">redis</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">java</span> <span class="string">-jar</span> <span class="string">/project/target/docker-debug-demo-0.0.1-SNAPSHOT.jar</span></span><br><span class="line"></span><br><span class="line"><span class="attr">redis:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">redis:5-alpine</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">"6379:6379"</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">redis-server</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Spring配置文件<br>因为运行在Docker上，<code>application.yml</code>上redis的host填入redis容器的名称。</p>
+ <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">    <span class="attr">redis:</span></span><br><span class="line">        <span class="attr">database:</span> <span class="number">0</span></span><br><span class="line">        <span class="attr">host:</span> <span class="string">redis</span></span><br><span class="line">        <span class="attr">port:</span> <span class="number">6379</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="运行程序"><a href="#运行程序" class="headerlink" title="运行程序"></a>运行程序</h3><p>安装好Docker插件后在<code>docker-compose.yml</code>文件左侧会有启动和debug图标，直接启动跟用<code>docker-compose up</code>差不多，下面记录一下debug启动。</p>
+<ol>
+<li><p>启动参数配置</p>
+<p> 点击<code>docker-compose.yml</code>文件左侧的debug图标后，在出现的面板上勾选上当前模块，然后双击下面的launch编辑docker的启动参数。<br> 关键在于<code>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005</code>这个参数，它的作用是指定JVM开启调试端口，后面踩坑记录里也会涉及到它。</p>
+<blockquote>
+<p>如果JDK是8或者之前的版本，address的值改成5005，即<code>address=5005</code>  </p>
+</blockquote>
+</li>
+</ol>
+<pre><code>![启动面板配置](/img/in-post/20200516_spring_docker_debug/run-configuration.jpg)
+&lt;center&gt;启动面板配置&lt;/center&gt;
+
+![编辑Docker启动参数](/img/in-post/20200516_spring_docker_debug/configure-docker.jpg)
+&lt;center&gt;编辑Docker启动参数&lt;/center&gt;</code></pre><ol>
+<li><p>Debug模式启动</p>
+<p> 编辑好启动器后可以直接点击点击<code>docker-compose.yml</code>文件左侧的debug图标启动程序，不过因为会重新创建容器，所以如果已经有容器在运行的话要先停止运行并删除。</p>
+<p> <img src="/img/in-post/20200516_spring_docker_debug/startup.jpg" alt="启动程序"></p>
+ <center>点击启动程序</center>
+
+<p> <img src="/img/in-post/20200516_spring_docker_debug/starting-success.jpg" alt="启动成功"></p>
+ <center>启动成功</center>
+</li>
+<li><p>访问程序</p>
+<p> 启动后通过<code>http://localhost:8080/demo/increase</code>连续访问接口，递增的接口便完成了。</p>
+<p> <img src="/img/in-post/20200516_spring_docker_debug/access1.jpg" alt="第一次访问"></p>
+ <center>第一次访问</center>
+
+<p> <img src="/img/in-post/20200516_spring_docker_debug/access2.jpg" alt="第二次访问"></p>
+ <center>第二次访问</center>
+</li>
+<li><p>调试程序</p>
+<p> 这个时候已经可以正常打断点和调试程序了。</p>
+<p> <img src="/img/in-post/20200516_spring_docker_debug/set-breakpoint.jpg" alt="设置断点"></p>
+ <center>设置断点</center>
+
+<p> <img src="/img/in-post/20200516_spring_docker_debug/debug-application.jpg" alt="进入断点"></p>
+ <center>访问接口进入断点</center>
+</li>
+<li><p>热部署</p>
+<p> 如果事先引入了<code>devtools</code>依赖的话，热部署也是可以直接用的（需要重新编译）。</p>
+<p> <img src="/img/in-post/20200516_spring_docker_debug/change-code.jpg" alt="修改程序递增值为2"></p>
+ <center>修改程序递增值为2</center>
+
+<p> <img src="/img/in-post/20200516_spring_docker_debug/event-log.jpg" alt="重新编译后日志"></p>
+ <center>重新编译后日志</center>
+
+<p> <img src="/img/in-post/20200516_spring_docker_debug/access3.jpg" alt="修改后第一次访问"></p>
+ <center>修改后第一次访问</center>
+
+<p> <img src="/img/in-post/20200516_spring_docker_debug/access4.jpg" alt="修改后第二次访问"></p>
+ <center>修改后第二次访问</center>
+
+<p> 可以看到递增值变成了2，这里容器并没有重新启动的，不过如果修改配置文件或者依赖文件的话就需要重启容器或者重新build了，这个还是相对麻烦的。</p>
+</li>
+</ol>
+<h2 id="踩坑记录"><a href="#踩坑记录" class="headerlink" title="踩坑记录"></a>踩坑记录</h2><h3 id="遇到handshake-failed-connection-prematurally-closed"><a href="#遇到handshake-failed-connection-prematurally-closed" class="headerlink" title="遇到handshake failed - connection prematurally closed"></a>遇到<code>handshake failed - connection prematurally closed</code></h3><p>在启动容器的时候有遇到启动不成功，报一下log的情况：  </p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">10</span>:<span class="number">21</span>	Error running <span class="string">'Remote with compose'</span>: Unable <span class="keyword">to</span> <span class="keyword">open</span> debugger port (localhos<span class="variable">t:5005</span>): java.io.IOException <span class="string">"handshake failed - connection prematurally closed"</span></span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">网上查了下发现引起这个错误的可能还是蛮多的，从最常见的启动命令行写错到本地JVM版本与Docker容器JVM版本不同，好几种都有。</span><br><span class="line"></span><br><span class="line">不过上面这些原因在我自己身上都不适用，调查时候发现容器都是成功启动的，容器的调试端口（<span class="number">5005</span>）也是运行着的。</span><br><span class="line">于是通过`docker exec`进入容器用，发现<span class="number">5005</span>端口并没有被监听，于是怀疑jar包运行时候`-agentli<span class="variable">b:jdwp</span>=transport=dt_socket,server=<span class="keyword">y</span>,<span class="keyword">suspend</span>=n,address=*:<span class="number">5005</span>`没有生效。</span><br><span class="line"></span><br><span class="line">于是退出容器适用`docker inspect`查看容器信息，发现启动参数确实很奇怪：</span><br><span class="line">    </span><br><span class="line">![docker inspect查看启动参数](/img/in-post/<span class="number">20200516</span>_spring_docker_debug/docker-inspect1.jpg)</span><br><span class="line"><span class="symbol">&lt;center&gt;</span>docker inspect查看启动参数&lt;/<span class="keyword">center</span>&gt;</span><br><span class="line"></span><br><span class="line">查找到这里就基本知道原因了，IDEA的Docker启动器上配置的启动调试端口的命令行被覆盖或者说拼接在一个没有启动调试端口的命令行后面，导致后面连接调试端口失败。然后我查看当时的Dockerfile，发现当时的代码如下：</span><br><span class="line"></span><br><span class="line">```dockerfile</span><br><span class="line">FROM openjdk:<span class="number">11</span></span><br><span class="line"></span><br><span class="line">COPY . /project</span><br><span class="line">RUN apt-<span class="built_in">get</span> <span class="keyword">update</span> \</span><br><span class="line">    &amp;&amp; apt-<span class="built_in">get</span> install -<span class="keyword">y</span> maven \</span><br><span class="line">    &amp;&amp; <span class="keyword">cd</span> /project \</span><br><span class="line">    &amp;&amp; mvn package</span><br><span class="line"></span><br><span class="line">ENTRYPOINT [<span class="string">"java"</span>, <span class="string">"-jar"</span>, <span class="string">"/project/target/docker-debug-demo-0.0.1-SNAPSHOT.jar"</span>]</span><br></pre></td></tr></table></figure>
+
+<p>跟上面的Dockerfile不同的地方在于当时根据<a href="https://github.com/IdeaUJetBrains/SpringBootDockerDemoDebug/blob/master/Dockerfile" target="_blank" rel="noopener">官方DEMO</a>学习，执行默认命令的时候用了<code>ENTRYPOINT</code>而不是<code>CMD</code>，而在<code>docker-compose.yml</code>文件的代码如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'3'</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">app:</span></span><br><span class="line">    <span class="attr">build:</span></span><br><span class="line">    <span class="attr">context:</span> <span class="string">.</span></span><br><span class="line">    <span class="attr">dockerfile:</span> <span class="string">Dockerfile</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">"8080:8080"</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">redis</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">java</span> <span class="string">-jar</span> <span class="string">/project/target/docker-debug-demo-0.0.1-SNAPSHOT.jar</span></span><br><span class="line"></span><br><span class="line"><span class="string">...</span></span><br><span class="line"><span class="string">...</span></span><br><span class="line"><span class="string">...</span></span><br></pre></td></tr></table></figure>
+<p>这里用的是<code>command</code>命令，因为Dockerfile和docker-compose.yml文件的命令基本是一致的，所以我去看了下docker-compose.yml文档，发现确实有<a href="https://docs.docker.com/compose/compose-file/#entrypoint" target="_blank" rel="noopener">entrypoint</a>参数，并且有下面这段Note：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Setting entrypoint both overrides any<span class="built_in"> default </span>entrypoint <span class="builtin-name">set</span> on the service’s image with the ENTRYPOINT Dockerfile instruction, <span class="keyword">and</span> clears out any<span class="built_in"> default </span>command on the image - meaning that <span class="keyword">if</span> there’s a CMD instruction <span class="keyword">in</span> the Dockerfile, it is ignored.</span><br></pre></td></tr></table></figure>
+<p>而<a href="https://docs.docker.com/compose/compose-file/#command" target="_blank" rel="noopener">command</a>上并没有类似的Note，这说明docker-compose.yml文件的<code>entrypoint</code>可以覆盖Dockerfile的<code>CMD</code>，但<code>command</code>应该是没法覆盖Dockerfile的<code>ENTRYPOINT</code>的，于是通过将Dockerfile的<code>ENTRYPOINT</code>改成<code>CMD</code>，果然可以正常执行了。</p>
+<p><img src="/img/in-post/20200516_spring_docker_debug/docker-inspect2.jpg" alt="docker inspect查看启动参数"></p>
+<center>修改后通过docker inspect查看启动参数</center>
+
+<p>写这个Demo时候我都是参考官方Demo的代码来写的（后来试着跑官方Demo也有同样问题），算是踩了官方的坑，不过也是有自己对Docker还不太熟悉的原因吧。</p>
+<h2 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h2><p>IDEA对于Docker的支持总体来讲还算成熟，但用的时候还是有一些不太舒服的地方，比如修改依赖或者配置等后需要重新打包镜像，应用的调试信息没法在IDEA的控制台查看，还时不时可能有一些小坑等等。但好处也是一样的，随着Java大版本发布频率变高，可能个人开发环境需要多个版本JDK的情况会变多，那么用Docker隔离环境还是很舒服的，特别是对我这样强迫症而言，我现在都有把本地机器各种环境都搬上Docker的冲动了。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://www.jetbrains.com/help/idea/run-and-debug-a-spring-boot-application-using-docker-compose.html" target="_blank" rel="noopener">Run and debug a Spring Boot application using Docker Compose</a>  </li>
+<li><a href="https://github.com/IdeaUJetBrains/SpringBootDockerDemoDebug" target="_blank" rel="noopener">SpringBootDockerDemoDebug</a></li>
+<li><a href="https://www.sys1yagi.com/entry/2019/04/04/165234" target="_blank" rel="noopener">ntelliJ IDEAからDocker上で動くSprint Bootアプリにdebuggerをつなぐ</a></li>
+</ul>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/zhaozecheng">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud" target="_blank" rel="noopener">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
