@@ -11,7 +11,7 @@
 
     <title>
         
-        用IDEA Community和Docker构建Spring Boot开发环境 - 西泽的博客
+        用IDEA Community和Docker构建Spring Boot开发环境 - 想起再写 | 西泽
         
     </title>
 
@@ -128,7 +128,7 @@
     </div>
 
     <div class="post-meta">
-        <span class="attr">发布于：<span>2020-05-16 20:00:00</span></span>
+        <span class="attr">发布于：<span>2020-05-16 11:00:00</span></span>
         
         <span class="attr">标签：/
         
@@ -179,61 +179,61 @@
 </blockquote>
 </li>
 </ol>
-<pre><code>![启动面板配置](/img/in-post/20200516_spring_docker_debug/run-configuration.jpg)
+<pre><code>![启动面板配置](../img/in-post/20200516_spring-docker-debug/run-configuration.jpg)
 &lt;center&gt;启动面板配置&lt;/center&gt;
 
-![编辑Docker启动参数](/img/in-post/20200516_spring_docker_debug/configure-docker.jpg)
+![编辑Docker启动参数](../img/in-post/20200516_spring-docker-debug/configure-docker.jpg)
 &lt;center&gt;编辑Docker启动参数&lt;/center&gt;</code></pre><ol>
 <li><p>Debug模式启动</p>
 <p> 编辑好启动器后可以直接点击点击<code>docker-compose.yml</code>文件左侧的debug图标启动程序，不过因为会重新创建容器，所以如果已经有容器在运行的话要先停止运行并删除。</p>
-<p> <img src="/img/in-post/20200516_spring_docker_debug/startup.jpg" alt="启动程序"></p>
+<p> <img src="../img/in-post/20200516_spring-docker-debug/startup.jpg" alt="启动程序"></p>
  <center>点击启动程序</center>
 
-<p> <img src="/img/in-post/20200516_spring_docker_debug/starting-success.jpg" alt="启动成功"></p>
+<p> <img src="../img/in-post/20200516_spring-docker-debug/starting-success.jpg" alt="启动成功"></p>
  <center>启动成功</center>
 </li>
 <li><p>访问程序</p>
 <p> 启动后通过<code>http://localhost:8080/demo/increase</code>连续访问接口，递增的接口便完成了。</p>
-<p> <img src="/img/in-post/20200516_spring_docker_debug/access1.jpg" alt="第一次访问"></p>
+<p> <img src="../img/in-post/20200516_spring-docker-debug/access1.jpg" alt="第一次访问"></p>
  <center>第一次访问</center>
 
-<p> <img src="/img/in-post/20200516_spring_docker_debug/access2.jpg" alt="第二次访问"></p>
+<p> <img src="../img/in-post/20200516_spring-docker-debug/access2.jpg" alt="第二次访问"></p>
  <center>第二次访问</center>
 </li>
 <li><p>调试程序</p>
 <p> 这个时候已经可以正常打断点和调试程序了。</p>
-<p> <img src="/img/in-post/20200516_spring_docker_debug/set-breakpoint.jpg" alt="设置断点"></p>
+<p> <img src="../img/in-post/20200516_spring-docker-debug/set-breakpoint.jpg" alt="设置断点"></p>
  <center>设置断点</center>
 
-<p> <img src="/img/in-post/20200516_spring_docker_debug/debug-application.jpg" alt="进入断点"></p>
+<p> <img src="../img/in-post/20200516_spring-docker-debug/debug-application.jpg" alt="进入断点"></p>
  <center>访问接口进入断点</center>
 </li>
 <li><p>热部署</p>
 <p> 如果事先引入了<code>devtools</code>依赖的话，热部署也是可以直接用的（需要重新编译）。</p>
-<p> <img src="/img/in-post/20200516_spring_docker_debug/change-code.jpg" alt="修改程序递增值为2"></p>
+<p> <img src="../img/in-post/20200516_spring-docker-debug/change-code.jpg" alt="修改程序递增值为2"></p>
  <center>修改程序递增值为2</center>
 
-<p> <img src="/img/in-post/20200516_spring_docker_debug/event-log.jpg" alt="重新编译后日志"></p>
+<p> <img src="../img/in-post/20200516_spring-docker-debug/event-log.jpg" alt="重新编译后日志"></p>
  <center>重新编译后日志</center>
 
-<p> <img src="/img/in-post/20200516_spring_docker_debug/access3.jpg" alt="修改后第一次访问"></p>
+<p> <img src="../img/in-post/20200516_spring-docker-debug/access3.jpg" alt="修改后第一次访问"></p>
  <center>修改后第一次访问</center>
 
-<p> <img src="/img/in-post/20200516_spring_docker_debug/access4.jpg" alt="修改后第二次访问"></p>
+<p> <img src="../img/in-post/20200516_spring-docker-debug/access4.jpg" alt="修改后第二次访问"></p>
  <center>修改后第二次访问</center>
 
 <p> 可以看到递增值变成了2，这里容器并没有重新启动的，不过如果修改配置文件或者依赖文件的话就需要重启容器或者重新build了，这个还是相对麻烦的。</p>
 </li>
 </ol>
 <h2 id="踩坑记录"><a href="#踩坑记录" class="headerlink" title="踩坑记录"></a>踩坑记录</h2><h3 id="遇到handshake-failed-connection-prematurally-closed"><a href="#遇到handshake-failed-connection-prematurally-closed" class="headerlink" title="遇到handshake failed - connection prematurally closed"></a>遇到<code>handshake failed - connection prematurally closed</code></h3><p>在启动容器的时候有遇到启动不成功，报一下log的情况：  </p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">10</span>:<span class="number">21</span>	Error running <span class="string">'Remote with compose'</span>: Unable <span class="keyword">to</span> <span class="keyword">open</span> debugger port (localhos<span class="variable">t:5005</span>): java.io.IOException <span class="string">"handshake failed - connection prematurally closed"</span></span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">网上查了下发现引起这个错误的可能还是蛮多的，从最常见的启动命令行写错到本地JVM版本与Docker容器JVM版本不同，好几种都有。</span><br><span class="line"></span><br><span class="line">不过上面这些原因在我自己身上都不适用，调查时候发现容器都是成功启动的，容器的调试端口（<span class="number">5005</span>）也是运行着的。</span><br><span class="line">于是通过`docker exec`进入容器用，发现<span class="number">5005</span>端口并没有被监听，于是怀疑jar包运行时候`-agentli<span class="variable">b:jdwp</span>=transport=dt_socket,server=<span class="keyword">y</span>,<span class="keyword">suspend</span>=n,address=*:<span class="number">5005</span>`没有生效。</span><br><span class="line"></span><br><span class="line">于是退出容器适用`docker inspect`查看容器信息，发现启动参数确实很奇怪：</span><br><span class="line">    </span><br><span class="line">![docker inspect查看启动参数](/img/in-post/<span class="number">20200516</span>_spring_docker_debug/docker-inspect1.jpg)</span><br><span class="line"><span class="symbol">&lt;center&gt;</span>docker inspect查看启动参数&lt;/<span class="keyword">center</span>&gt;</span><br><span class="line"></span><br><span class="line">查找到这里就基本知道原因了，IDEA的Docker启动器上配置的启动调试端口的命令行被覆盖或者说拼接在一个没有启动调试端口的命令行后面，导致后面连接调试端口失败。然后我查看当时的Dockerfile，发现当时的代码如下：</span><br><span class="line"></span><br><span class="line">```dockerfile</span><br><span class="line">FROM openjdk:<span class="number">11</span></span><br><span class="line"></span><br><span class="line">COPY . /project</span><br><span class="line">RUN apt-<span class="built_in">get</span> <span class="keyword">update</span> \</span><br><span class="line">    &amp;&amp; apt-<span class="built_in">get</span> install -<span class="keyword">y</span> maven \</span><br><span class="line">    &amp;&amp; <span class="keyword">cd</span> /project \</span><br><span class="line">    &amp;&amp; mvn package</span><br><span class="line"></span><br><span class="line">ENTRYPOINT [<span class="string">"java"</span>, <span class="string">"-jar"</span>, <span class="string">"/project/target/docker-debug-demo-0.0.1-SNAPSHOT.jar"</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">10</span>:<span class="number">21</span>	Error running <span class="string">'Remote with compose'</span>: Unable <span class="keyword">to</span> <span class="keyword">open</span> debugger port (localhos<span class="variable">t:5005</span>): java.io.IOException <span class="string">"handshake failed - connection prematurally closed"</span></span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">网上查了下发现引起这个错误的可能还是蛮多的，从最常见的启动命令行写错到本地JVM版本与Docker容器JVM版本不同，好几种都有。</span><br><span class="line"></span><br><span class="line">不过上面这些原因在我自己身上都不适用，调查时候发现容器都是成功启动的，容器的调试端口（<span class="number">5005</span>）也是运行着的。</span><br><span class="line">于是通过`docker exec`进入容器用，发现<span class="number">5005</span>端口并没有被监听，于是怀疑jar包运行时候`-agentli<span class="variable">b:jdwp</span>=transport=dt_socket,server=<span class="keyword">y</span>,<span class="keyword">suspend</span>=n,address=*:<span class="number">5005</span>`没有生效。</span><br><span class="line"></span><br><span class="line">于是退出容器适用`docker inspect`查看容器信息，发现启动参数确实很奇怪：</span><br><span class="line">    </span><br><span class="line">![docker inspect查看启动参数](../img/in-post/<span class="number">20200516</span>_spring-docker-<span class="keyword">debug</span>/docker-inspect1.jpg)</span><br><span class="line"><span class="symbol">&lt;center&gt;</span>docker inspect查看启动参数&lt;/<span class="keyword">center</span>&gt;</span><br><span class="line"></span><br><span class="line">查找到这里就基本知道原因了，IDEA的Docker启动器上配置的启动调试端口的命令行被覆盖或者说拼接在一个没有启动调试端口的命令行后面，导致后面连接调试端口失败。然后我查看当时的Dockerfile，发现当时的代码如下：</span><br><span class="line"></span><br><span class="line">```dockerfile</span><br><span class="line">FROM openjdk:<span class="number">11</span></span><br><span class="line"></span><br><span class="line">COPY . /project</span><br><span class="line">RUN apt-<span class="built_in">get</span> <span class="keyword">update</span> \</span><br><span class="line">    &amp;&amp; apt-<span class="built_in">get</span> install -<span class="keyword">y</span> maven \</span><br><span class="line">    &amp;&amp; <span class="keyword">cd</span> /project \</span><br><span class="line">    &amp;&amp; mvn package</span><br><span class="line"></span><br><span class="line">ENTRYPOINT [<span class="string">"java"</span>, <span class="string">"-jar"</span>, <span class="string">"/project/target/docker-debug-demo-0.0.1-SNAPSHOT.jar"</span>]</span><br></pre></td></tr></table></figure>
 
 <p>跟上面的Dockerfile不同的地方在于当时根据<a href="https://github.com/IdeaUJetBrains/SpringBootDockerDemoDebug/blob/master/Dockerfile" target="_blank" rel="noopener">官方DEMO</a>学习，执行默认命令的时候用了<code>ENTRYPOINT</code>而不是<code>CMD</code>，而在<code>docker-compose.yml</code>文件的代码如下：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'3'</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">app:</span></span><br><span class="line">    <span class="attr">build:</span></span><br><span class="line">    <span class="attr">context:</span> <span class="string">.</span></span><br><span class="line">    <span class="attr">dockerfile:</span> <span class="string">Dockerfile</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">"8080:8080"</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">redis</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">java</span> <span class="string">-jar</span> <span class="string">/project/target/docker-debug-demo-0.0.1-SNAPSHOT.jar</span></span><br><span class="line"></span><br><span class="line"><span class="string">...</span></span><br><span class="line"><span class="string">...</span></span><br><span class="line"><span class="string">...</span></span><br></pre></td></tr></table></figure>
 <p>这里用的是<code>command</code>命令，因为Dockerfile和docker-compose.yml文件的命令基本是一致的，所以我去看了下docker-compose.yml文档，发现确实有<a href="https://docs.docker.com/compose/compose-file/#entrypoint" target="_blank" rel="noopener">entrypoint</a>参数，并且有下面这段Note：</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Setting entrypoint both overrides any<span class="built_in"> default </span>entrypoint <span class="builtin-name">set</span> on the service’s image with the ENTRYPOINT Dockerfile instruction, <span class="keyword">and</span> clears out any<span class="built_in"> default </span>command on the image - meaning that <span class="keyword">if</span> there’s a CMD instruction <span class="keyword">in</span> the Dockerfile, it is ignored.</span><br></pre></td></tr></table></figure>
 <p>而<a href="https://docs.docker.com/compose/compose-file/#command" target="_blank" rel="noopener">command</a>上并没有类似的Note，这说明docker-compose.yml文件的<code>entrypoint</code>可以覆盖Dockerfile的<code>CMD</code>，但<code>command</code>应该是没法覆盖Dockerfile的<code>ENTRYPOINT</code>的，于是通过将Dockerfile的<code>ENTRYPOINT</code>改成<code>CMD</code>，果然可以正常执行了。</p>
-<p><img src="/img/in-post/20200516_spring_docker_debug/docker-inspect2.jpg" alt="docker inspect查看启动参数"></p>
+<p><img src="../img/in-post/20200516_spring-docker-debug/docker-inspect2.jpg" alt="docker inspect查看启动参数"></p>
 <center>修改后通过docker inspect查看启动参数</center>
 
 <p>写这个Demo时候我都是参考官方Demo的代码来写的（后来试着跑官方Demo也有同样问题），算是踩了官方的坑，不过也是有自己对Docker还不太熟悉的原因吧。</p>
@@ -243,6 +243,7 @@
 <li><a href="https://github.com/IdeaUJetBrains/SpringBootDockerDemoDebug" target="_blank" rel="noopener">SpringBootDockerDemoDebug</a></li>
 <li><a href="https://www.sys1yagi.com/entry/2019/04/04/165234" target="_blank" rel="noopener">ntelliJ IDEAからDocker上で動くSprint Bootアプリにdebuggerをつなぐ</a></li>
 </ul>
+<p><strong>本文作者</strong>：西泽<br /><strong>本文地址</strong>： <a href="http://xize.space/20200516_spring-docker-debug/">http://xize.space/20200516_spring-docker-debug/</a> <br /><strong>版权声明</strong>：本作品采用<a rel="license noopener" href="http://creativecommons.org/licenses/by-sa/3.0/cn/" target="_blank">知识共享署名-相同方式共享 3.0 中国大陆许可协议</a>进行许可。</p>
 
         
         <br />
@@ -271,7 +272,7 @@
 
         
         <li>
-            <a target="_blank"  href="https://github.com/zhaozecheng">
+            <a target="_blank"  href="https://github.com/xize1993">
                             <span class="fa-stack fa-lg">
                                 <i class="iconfont icon-github"></i>
                             </span>
